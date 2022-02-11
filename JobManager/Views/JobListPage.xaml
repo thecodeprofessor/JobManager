@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:JobManager.ViewModels"
+             xmlns:models="clr-namespace:JobManager.Models"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="JobManager.Views.JobListPage">
+
+    <ContentPage.BindingContext>
+        <viewmodels:JobListViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter"></xct:ItemSelectedEventArgsConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">
+            <ScrollView>
+                <StackLayout>
+                    <ListView
+                Background="Transparent"
+                CachingStrategy="RecycleElement"
+                ItemsSource="{Binding Jobs}"
+                RowHeight="60"
+                SelectedItem="{Binding SelectedJob, Mode=TwoWay}">
+                        <ListView.Behaviors>
+                            <xct:EventToCommandBehavior
+                        EventName="ItemSelected"
+                        Command="{Binding SelectedCommand}"
+                        EventArgsConverter="{StaticResource ItemSelectedEventArgsConverter}"></xct:EventToCommandBehavior>
+                        </ListView.Behaviors>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Job">
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" TextColor="Black"></Label>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>
