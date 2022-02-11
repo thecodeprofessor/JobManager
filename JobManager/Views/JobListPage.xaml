@@ -10,12 +10,6 @@
         <viewmodels:JobListViewModel/>
     </ContentPage.BindingContext>
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <xct:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter"></xct:ItemSelectedEventArgsConverter>
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
     <ContentPage.Content>
         <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">
             <ScrollView>
@@ -24,14 +18,7 @@
                 Background="Transparent"
                 CachingStrategy="RecycleElement"
                 ItemsSource="{Binding Jobs}"
-                RowHeight="60"
-                SelectedItem="{Binding SelectedJob, Mode=TwoWay}">
-                        <ListView.Behaviors>
-                            <xct:EventToCommandBehavior
-                        EventName="ItemSelected"
-                        Command="{Binding SelectedCommand}"
-                        EventArgsConverter="{StaticResource ItemSelectedEventArgsConverter}"></xct:EventToCommandBehavior>
-                        </ListView.Behaviors>
+                RowHeight="60">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:Job">
                                 <ViewCell>
