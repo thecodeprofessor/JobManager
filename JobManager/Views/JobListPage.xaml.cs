@@ -11,5 +11,12 @@ namespace JobManager.Views
         {
             InitializeComponent();
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            //int.TryParse(JobId, out var jobId);
+            //BindingContext = new ParkDetailViewModel(parkId);
+        }
     }
 }
