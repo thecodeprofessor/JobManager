@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobManager.Android", "JobManager.Android\JobManager.Android.csproj", "{92482CAA-FDF6-4252-897B-5A0CC3D04E32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobManager", "JobManager\JobManager.csproj", "{DD855DF9-F77B-43A3-AC5D-6E640328F1A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobManager", "JobManager\JobManager.csproj", "{DD855DF9-F77B-43A3-AC5D-6E640328F1A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobManager.API", "JobManager.API\JobManager.API.csproj", "{FB250E2E-5D2B-47C3-9412-01F5E7117D9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{DD855DF9-F77B-43A3-AC5D-6E640328F1A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD855DF9-F77B-43A3-AC5D-6E640328F1A7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD855DF9-F77B-43A3-AC5D-6E640328F1A7}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{FB250E2E-5D2B-47C3-9412-01F5E7117D9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB250E2E-5D2B-47C3-9412-01F5E7117D9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB250E2E-5D2B-47C3-9412-01F5E7117D9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB250E2E-5D2B-47C3-9412-01F5E7117D9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
