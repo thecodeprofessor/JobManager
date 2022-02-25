@@ -31,8 +31,7 @@ namespace JobManager.API
 
             services.AddControllers();
 
-            services.AddDbContext<JobContext>(options => options.UseInMemoryDatabase("JobManager"));
-
+            services.AddDbContext<JobContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "JobManager.API", Version = "v1" });
