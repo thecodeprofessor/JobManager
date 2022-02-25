@@ -1,3 +1,4 @@
+using JobManager.API.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobManager.API
 {
@@ -28,6 +30,9 @@ namespace JobManager.API
         {
 
             services.AddControllers();
+
+            services.AddDbContext<JobContext>(options => options.UseInMemoryDatabase("JobManager"));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "JobManager.API", Version = "v1" });
