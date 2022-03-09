@@ -34,9 +34,6 @@ namespace JobManager.Services
 
             var job = JsonConvert.DeserializeObject<Job>(jsonString);
 
-            //job.Name += "G";
-            //await UpdateJob(job);
-
             return job;
         }
 
