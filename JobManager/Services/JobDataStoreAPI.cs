@@ -21,7 +21,7 @@ namespace JobManager.Services
         public async Task<Job> GetJob(int jobId)
         {
             var service = DependencyService.Get<IWebClientService>();
-            var jsonString = await service.GetString($"{API}/Jobs/{jobId}");
+            var jsonString = await service.GetAsync($"{API}/Jobs/{jobId}");
 
             var job = JsonConvert.DeserializeObject<Job>(jsonString);
 
@@ -31,9 +31,13 @@ namespace JobManager.Services
         public async Task<IEnumerable<Job>> GetJobs()
         {
             var service = DependencyService.Get<IWebClientService>();
-            var jsonString = await service.GetString($"{API}/Jobs");
+            var jsonString = await service.GetAsync($"{API}/Jobs");
 
             var jobs = JsonConvert.DeserializeObject<List<Job>>(jsonString);
+
+
+            //var service = DependencyService.Get<IWebClientService>();
+            //var jsonString = await service.PostAsync($"{API}/Jobs", "{\"id\": 0,\"name\": \"test111\",\"description\": \"testdesc111\"}", "application/json");
 
             return jobs;
         }
