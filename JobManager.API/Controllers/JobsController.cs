@@ -26,30 +26,6 @@ namespace JobManager.API.Controllers
         {
             var jobs = await _context.Jobs.ToListAsync();
 
-            if (jobs.Count() == 0)
-            {
-                var defaultJobs = GetDefaultJobs();
-                foreach (var job in defaultJobs)
-                    _context.Jobs.Add(job);
-
-                await _context.SaveChangesAsync();
-
-                return defaultJobs;
-            }
-
-            return jobs;
-        }
-
-        private List<Job> GetDefaultJobs()
-        {
-            var jobs = new List<Job>()
-            {
-                new Job { Id = 1, Name = "Job A API File", Description = "This is job a." },
-                new Job { Id = 2, Name = "Job B API File", Description = "This is job b." },
-                new Job { Id = 3, Name = "Job C API File", Description = "This is job c." },
-                new Job { Id = 4, Name = "Job D API File", Description = "This is job d." }
-            };
-
             return jobs;
         }
 
