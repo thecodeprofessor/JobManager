@@ -9,7 +9,7 @@ using JobManager.API.Models;
 
 namespace JobManager.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("{studentnumber:regex(^A00[[0-9]]{{6}}$)}/[controller]")]
     [ApiController]
     public class JobsController : ControllerBase
     {
@@ -22,7 +22,7 @@ namespace JobManager.API.Controllers
 
         // GET: api/Jobs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Job>>> GetJobs()
+        public async Task<ActionResult<IEnumerable<Job>>> GetJobs(string studentnumber)
         {
             var jobs = await _context.Jobs.ToListAsync();
 
@@ -31,7 +31,7 @@ namespace JobManager.API.Controllers
 
         // GET: api/Jobs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Job>> GetJob(int id)
+        public async Task<ActionResult<Job>> GetJob(string studentnumber, int id)
         {
             var job = await _context.Jobs.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace JobManager.API.Controllers
         // PUT: api/Jobs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutJob(int id, Job job)
+        public async Task<IActionResult> PutJob(string studentnumber, int id, Job job)
         {
             if (id != job.Id)
             {
@@ -77,17 +77,17 @@ namespace JobManager.API.Controllers
         // POST: api/Jobs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Job>> PostJob(Job job)
+        public async Task<ActionResult<Job>> PostJob(string studentnumber, Job job)
         {
             _context.Jobs.Add(job);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetJob", new { id = job.Id }, job);
+            return CreatedAtAction("GetJob", new { studentnumber = studentnumber, id = job.Id }, job);
         }
 
         // DELETE: api/Jobs/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteJob(int id)
+        public async Task<IActionResult> DeleteJob(string studentnumber, int id)
         {
             var job = await _context.Jobs.FindAsync(id);
             if (job == null)
