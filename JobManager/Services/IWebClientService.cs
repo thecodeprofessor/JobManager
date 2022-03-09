@@ -13,6 +13,7 @@ namespace JobManager.Services
         //https://github.com/xamarin/xamarin-forms-samples/tree/main/DependencyService
 
         Task<string> GetAsync(string uri);
-        Task<string> PostAsync(string uri, string body, string type); 
+        Task<string> PostAsync(string uri, string body, string type);
+        Task<string> PutAsync(string uri, string body, string type);
     }
 }
