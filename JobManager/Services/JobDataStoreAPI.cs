@@ -15,7 +15,16 @@ namespace JobManager.Services
 
         public async Task AddJob(Job job)
         {
-            throw new NotImplementedException();
+            var service = DependencyService.Get<IWebClientService>();
+            
+            var jsonString = await service.PostAsync($"{API}/Jobs", JsonConvert.SerializeObject(job), "application/json");
+            
+            if (jsonString != null)
+            {
+                var newJob = JsonConvert.DeserializeObject<Job>(jsonString);
+            }
+
+            //Consider returning a bool to verify if the job was created.
         }
 
         public async Task<Job> GetJob(int jobId)
@@ -34,10 +43,6 @@ namespace JobManager.Services
             var jsonString = await service.GetAsync($"{API}/Jobs");
 
             var jobs = JsonConvert.DeserializeObject<List<Job>>(jsonString);
-
-
-            //var service = DependencyService.Get<IWebClientService>();
-            //var jsonString = await service.PostAsync($"{API}/Jobs", "{\"id\": 0,\"name\": \"test111\",\"description\": \"testdesc111\"}", "application/json");
 
             return jobs;
         }
