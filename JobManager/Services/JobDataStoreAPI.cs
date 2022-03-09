@@ -34,6 +34,9 @@ namespace JobManager.Services
 
             var job = JsonConvert.DeserializeObject<Job>(jsonString);
 
+            //job.Name += "G";
+            //await UpdateJob(job);
+
             return job;
         }
 
@@ -49,7 +52,11 @@ namespace JobManager.Services
 
         public async Task UpdateJob(Job job)
         {
-            throw new NotImplementedException();
+            var service = DependencyService.Get<IWebClientService>();
+
+            await service.PutAsync($"{API}/Jobs/{job.Id}", JsonConvert.SerializeObject(job), "application/json");
+
+            //Consider returning a bool to verify if the job was updated.
         }
     }
 }
