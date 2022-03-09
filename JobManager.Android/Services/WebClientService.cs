@@ -15,14 +15,14 @@ namespace JobManager.Droid.Services
             //Related Documentation:
             //https://docs.microsoft.com/en-us/xamarin/xamarin-forms/data-cloud/web-services/rest
 
-            public async Task<string> GetString(string Uri)
+            public async Task<string> GetStringAsync(string uri)
             {
                 try
                 {
                     HttpClient client;
                     client = new HttpClient();
 
-                    HttpResponseMessage response = await client.GetAsync(Uri);
+                    HttpResponseMessage response = await client.GetAsync(uri);
                     return response.IsSuccessStatusCode ? await response.Content.ReadAsStringAsync() : null;
                 }
                 catch
