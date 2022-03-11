@@ -14,6 +14,8 @@ namespace JobManager.ViewModels
     public class JobDetailViewModel : JobManagerBase
     {
 
+        public AsyncCommand SaveCommand { get; }
+
         private int jobId;
         private string name;
         private string description;
@@ -43,11 +45,30 @@ namespace JobManager.ViewModels
             }
         }
 
+        public JobDetailViewModel()
+        {
+            SaveCommand = new AsyncCommand(Save);
+        }
+
+        async Task Save()
+        {
+            Job job = new Job
+            {
+                Id = jobId,
+                Name = Name,
+                Description = Description
+            };
+
+            await JobDataStore.UpdateJob(job);
+
+            await Shell.Current.GoToAsync("..");
+        }
+
         public async void LoadJob(int jobId)
         {
             try
             {
-                var job = await JobDataStore.GetJob(jobId);
+                Job job = await JobDataStore.GetJob(jobId);
                 //JobId = job.Id;
                 Name = job.Name;
                 Description = job.Description;
