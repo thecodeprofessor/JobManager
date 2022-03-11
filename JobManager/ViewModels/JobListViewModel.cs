@@ -15,6 +15,7 @@ namespace JobManager.ViewModels
         public ObservableRangeCollection<Job> Jobs { get; set; }
         public AsyncCommand RefreshCommand { get; }
         public AsyncCommand<Job> SelectedCommand { get; }
+        public AsyncCommand AddCommand { get; }
 
         private Job selectedJob;
 
@@ -34,6 +35,13 @@ namespace JobManager.ViewModels
 
             RefreshCommand = new AsyncCommand(Refresh);
             SelectedCommand = new AsyncCommand<Job>(Selected);
+            AddCommand = new AsyncCommand(Add);
+        }
+
+        async Task Add()
+        {
+            string route = $"{nameof(Views.JobDetailPage)}";
+            await Shell.Current.GoToAsync(route);
         }
 
         async Task Selected(Job job)
