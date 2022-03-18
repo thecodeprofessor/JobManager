@@ -79,7 +79,7 @@ namespace JobManager.Services
             return jobs;
         }
 
-        public async Task AddJob(Job job)
+        public async Task AddJobAsync(Job job)
         {
             var jobs = await ReadFile();
             jobs.Add(job);
@@ -87,7 +87,7 @@ namespace JobManager.Services
             await WriteFile(jobs);
         }
 
-        public async Task<Job> GetJob(int jobId)
+        public async Task<Job> GetJobAsync(int jobId)
         {
             var jobs = await ReadFile();
 
@@ -96,14 +96,14 @@ namespace JobManager.Services
             return job;
         }
 
-        public async Task<IEnumerable<Job>> GetJobs()
+        public async Task<IEnumerable<Job>> GetJobsAsync()
         {
             var jobs = await ReadFile();
 
             return jobs;
         }
 
-        public async Task UpdateJob(Job job)
+        public async Task UpdateJobAsync(Job job)
         {
             var jobs = await ReadFile ();
             jobs[jobs.FindIndex(p => p.Id == job.Id)] = job;

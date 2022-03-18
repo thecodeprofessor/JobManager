@@ -59,7 +59,7 @@ namespace JobManager.ViewModels
                 Description = Description
             };
 
-            await JobDataStore.UpdateJob(job);
+            await JobDataStore.UpdateJobAsync(job);
 
             await Shell.Current.GoToAsync("..");
         }
@@ -68,7 +68,7 @@ namespace JobManager.ViewModels
         {
             try
             {
-                Job job = await JobDataStore.GetJob(jobId);
+                Job job = await JobDataStore.GetJobAsync(jobId);
                 //JobId = job.Id;
                 Name = job.Name;
                 Description = job.Description;

@@ -13,7 +13,7 @@ namespace JobManager.Services
         private static string StudentNumber => "studentnumber";
         private static string API => $"https://jobmanagerdevapi.azurewebsites.net/{StudentNumber}";
 
-        public async Task AddJob(Job job)
+        public async Task AddJobAsync(Job job)
         {
             var service = DependencyService.Get<IWebClientService>();
             
@@ -27,7 +27,7 @@ namespace JobManager.Services
             //Consider returning a bool to verify if the job was created.
         }
 
-        public async Task<Job> GetJob(int jobId)
+        public async Task<Job> GetJobAsync(int jobId)
         {
             var service = DependencyService.Get<IWebClientService>();
             var jsonString = await service.GetAsync($"{API}/Jobs/{jobId}");
@@ -37,7 +37,7 @@ namespace JobManager.Services
             return job;
         }
 
-        public async Task<IEnumerable<Job>> GetJobs()
+        public async Task<IEnumerable<Job>> GetJobsAsync()
         {
             var service = DependencyService.Get<IWebClientService>();
             var jsonString = await service.GetAsync($"{API}/Jobs");
@@ -47,7 +47,7 @@ namespace JobManager.Services
             return jobs;
         }
 
-        public async Task UpdateJob(Job job)
+        public async Task UpdateJobAsync(Job job)
         {
             var service = DependencyService.Get<IWebClientService>();
 

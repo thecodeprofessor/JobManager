@@ -62,7 +62,7 @@ namespace JobManager.ViewModels
 
         public async void LoadJobs()
         {
-            IEnumerable<Job> jobs = await JobDataStore.GetJobs();
+            IEnumerable<Job> jobs = await JobDataStore.GetJobsAsync();
             Jobs.AddRange(jobs);
         }
     }

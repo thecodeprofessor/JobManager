@@ -60,7 +60,7 @@ namespace JobManager.Services
             File.WriteAllText(FilePath, jsonString);
         }
 
-        public async Task<Job> GetJob(int jobId)
+        public async Task<Job> GetJobAsync(int jobId)
         {
             var jobs = ReadFile();
 
@@ -69,14 +69,14 @@ namespace JobManager.Services
             return job;
         }
 
-        public async Task<IEnumerable<Job>> GetJobs()
+        public async Task<IEnumerable<Job>> GetJobsAsync()
         {
             var jobs = ReadFile();
 
             return jobs;
         }
 
-        public async Task UpdateJob(Job job)
+        public async Task UpdateJobAsync(Job job)
         {
             var jobs = ReadFile();
             jobs[jobs.FindIndex(p => p.Id == job.Id)] = job;
@@ -84,7 +84,7 @@ namespace JobManager.Services
             WriteFile(jobs);
         }
 
-        public async Task AddJob(Job job)
+        public async Task AddJobAsync(Job job)
         {
             var jobs = ReadFile();
             jobs.Add(job);

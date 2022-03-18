@@ -6,9 +6,9 @@ namespace JobManager.Services
 {
     public interface IJobDataStore<T>
     {
-        Task<IEnumerable<Job>> GetJobs();
-        Task<Job> GetJob(int jobId);
-        Task AddJob(Job job);
-        Task UpdateJob(Job job);
+        Task<IEnumerable<Job>> GetJobsAsync();
+        Task<Job> GetJobAsync(int jobId);
+        Task AddJobAsync(Job job);
+        Task UpdateJobAsync(Job job);
     }
 }
