@@ -11,11 +11,14 @@ namespace JobManager.ViewModels
 {
     class JobListViewModel : JobManagerBase
     {
-
         public ObservableRangeCollection<Job> Jobs { get; set; }
+
         public AsyncCommand RefreshCommand { get; }
         public AsyncCommand<Job> SelectedCommand { get; }
         public AsyncCommand AddCommand { get; }
+
+        public AsyncCommand PageAppearingCommand { get; }
+        public AsyncCommand PageDisappearingCommand { get; }
 
         private Job selectedJob;
 
@@ -31,11 +34,21 @@ namespace JobManager.ViewModels
 
             Jobs = new ObservableRangeCollection<Job>();
 
-            LoadJobs();
-
             RefreshCommand = new AsyncCommand(Refresh);
             SelectedCommand = new AsyncCommand<Job>(Selected);
             AddCommand = new AsyncCommand(Add);
+
+            PageAppearingCommand = new AsyncCommand(PageAppearing);
+            PageDisappearingCommand = new AsyncCommand(PageDisappearing);
+        }
+
+        async Task PageAppearing()
+        {
+            Refresh();
+        }
+
+        async Task PageDisappearing()
+        {
         }
 
         async Task Add()
