@@ -55,8 +55,8 @@ namespace JobManager.ViewModels
             Job job = new Job
             {
                 Id = jobId,
-                Name = Name,
-                Description = Description
+                Name = name,
+                Description = description
             };
 
             if (jobId != 0)
