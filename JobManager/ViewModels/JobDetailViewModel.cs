@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Xamarin.Forms;
 using System.Diagnostics;
+using JobManager.Services;
 
 namespace JobManager.ViewModels
 {
@@ -15,10 +16,12 @@ namespace JobManager.ViewModels
     {
 
         public AsyncCommand SaveCommand { get; }
+        public AsyncCommand TakePicture { get; }
 
         private int jobId;
         private string name;
         private string description;
+        private ImageSource picture;
 
         public string Name
         {
@@ -30,6 +33,12 @@ namespace JobManager.ViewModels
         {
             get => description;
             set => SetProperty(ref description, value);
+        }
+
+        public ImageSource Picture
+        {
+            get => picture;
+            set => SetProperty(ref picture, value);
         }
 
         public int JobId
@@ -48,6 +57,14 @@ namespace JobManager.ViewModels
         public JobDetailViewModel()
         {
             SaveCommand = new AsyncCommand(Save);
+            TakePicture = new AsyncCommand(CapturePhoto);
+        }
+
+        async Task CapturePhoto()
+        {
+            var service = DependencyService.Get<IMediaService>();
+            Image image = await service.CapturePhotoAsync();
+            Picture = image.Source;
         }
 
         async Task Save()
