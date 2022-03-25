@@ -16,7 +16,7 @@ namespace JobManager.ViewModels
     {
 
         public AsyncCommand SaveCommand { get; }
-        public AsyncCommand TakePicture { get; }
+        public AsyncCommand TakePictureCommand { get; }
 
         private int jobId;
         private string name;
@@ -57,10 +57,10 @@ namespace JobManager.ViewModels
         public JobDetailViewModel()
         {
             SaveCommand = new AsyncCommand(Save);
-            TakePicture = new AsyncCommand(CapturePhoto);
+            TakePictureCommand = new AsyncCommand(TakePicture);
         }
 
-        async Task CapturePhoto()
+        async Task TakePicture()
         {
             var service = DependencyService.Get<IMediaService>();
             Image image = await service.CapturePhotoAsync();

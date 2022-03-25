@@ -18,7 +18,7 @@
             <Label Text="Description:" FontSize="Medium" />
             <Entry Text="{Binding Description}" FontSize="Small"/>
             <Button Text="Save" Command="{Binding SaveCommand}" />
-            <Button Text="Take Picture" Command="{Binding TakePicture}" />
+            <Button Text="Take Picture" Command="{Binding TakePictureCommand}" />
             <Image Source="{Binding Picture}"/>
         </StackLayout>
     </ContentPage.Content>
