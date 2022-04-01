@@ -27,21 +27,18 @@ namespace JobManager.Droid.Services
         //Related Documentation:
         //https://docs.microsoft.com/en-us/xamarin/essentials/get-started?tabs=windows%2Candroid
         //https://docs.microsoft.com/en-us/xamarin/essentials/media-picker?tabs=android
-        public async Task<Image> CapturePhotoAsync()
+        public async Task<byte[]> CapturePhotoAsync()
         {
             try
             {
                 FileResult result = await MediaPicker.CapturePhotoAsync();
-                //await LoadPhotoAsync(result);
 
                 Stream stream = await result.OpenReadAsync();
 
-                Image image = new Image
-                {
-                    Source = ImageSource.FromStream(() => stream)
-                };
+                MemoryStream memory = new MemoryStream();
+                stream.CopyTo(memory);
 
-                return image;
+                return memory.ToArray();
             }
             catch (FeatureNotSupportedException ex)
             {

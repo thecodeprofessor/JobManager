@@ -8,6 +8,7 @@ using System.Web;
 using Xamarin.Forms;
 using System.Diagnostics;
 using JobManager.Services;
+using System.IO;
 
 namespace JobManager.ViewModels
 {
@@ -63,8 +64,9 @@ namespace JobManager.ViewModels
         async Task TakePicture()
         {
             var service = DependencyService.Get<IMediaService>();
-            Image image = await service.CapturePhotoAsync();
-            Picture = image.Source;
+            var bytes = await service.CapturePhotoAsync();
+
+            Picture = ImageSource.FromStream(() => new MemoryStream(bytes));
         }
 
         async Task Save()

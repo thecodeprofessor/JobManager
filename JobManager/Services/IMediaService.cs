@@ -14,7 +14,7 @@ namespace JobManager.Services
         //https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/dependency-service/introduction
         //https://github.com/xamarin/xamarin-forms-samples/tree/main/DependencyService
 
-        Task<Image> CapturePhotoAsync(); //Opens the camera to take a photo.
+        Task<byte[]> CapturePhotoAsync(); //Opens the camera to take a photo.
         //Task PickPhotoAsync(); //Opens the media browser to select a photo.
         //Task PickVideoAsync(); //Opens the media browser to select a video.
         //Task CaptureVideoAsync(); //Opens the camera to take a video.
