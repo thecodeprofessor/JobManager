@@ -68,7 +68,7 @@ namespace JobManager.ViewModels
 
             Picture = ImageSource.FromStream(() => new MemoryStream(bytes));
             
-            string name = $"{JobId}_{Guid.NewGuid()}.png";
+            string name = $"Jobs/Pictures/{JobId}/{Guid.NewGuid()}.png";
 
             var blob = DependencyService.Get<IBlobStorageService>();
             await blob.UploadStreamAsync(name, new MemoryStream(bytes));
