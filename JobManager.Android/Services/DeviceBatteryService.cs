@@ -19,13 +19,15 @@ namespace JobManager.Droid.Services
 {
     class DeviceBatteryService : IDeviceBatteryService
     {
+        //Related Documentation:
+        //https://docs.microsoft.com/en-us/xamarin/essentials/battery?context=xamarin%2Fandroid&tabs=android
+
         public DeviceBattery GetBattery()
         {
             DeviceBattery battery = new DeviceBattery();
 
-            //Logic from:
-            //https://docs.microsoft.com/en-us/xamarin/essentials/battery?context=xamarin%2Fandroid&tabs=android
-
+            //Logic
+            
             return battery;
         }
     }

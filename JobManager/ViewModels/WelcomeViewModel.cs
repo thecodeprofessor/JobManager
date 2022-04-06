@@ -34,6 +34,9 @@ namespace JobManager.ViewModels
 
             Orientation = deviceOrientation.ToString();
 
+
+            var locationService = DependencyService.Get<IDeviceLocationService>();
+            var location = await locationService.GetLastLocation();
             //await Application.Current.MainPage.DisplayAlert("Orientation", deviceOrientation.ToString(), "OK");
         }
     }
