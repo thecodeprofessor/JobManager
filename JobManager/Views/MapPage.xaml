@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:JobManager.ViewModels"
+             x:Class="JobManager.Views.MapPage">
+
+    <ContentPage.BindingContext>
+        <viewmodels:MapViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Map Here"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+
+            <Button Text="Get Location" Command="{Binding GetLocationCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
