@@ -14,6 +14,6 @@ namespace JobManager.Services
 
         Task UploadStreamAsync(string name, MemoryStream stream);
         Task<MemoryStream> DownloadStreamAsync(string name);
-
+        Task<List<string>> ListBlobsAsync(string prefix, int? size = null);
     }
 }
