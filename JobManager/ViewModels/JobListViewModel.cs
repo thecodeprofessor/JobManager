@@ -65,12 +65,15 @@ namespace JobManager.ViewModels
 
         private async Task Refresh()
         {
-            IsBusy = true;
+            if (!IsBusy)
+            {
+                IsBusy = true;
 
-            Jobs.Clear();
-            LoadJobs();
+                Jobs.Clear();
+                LoadJobs();
 
-            IsBusy = false;
+                IsBusy = false;
+            }
         }
 
         public async void LoadJobs()
