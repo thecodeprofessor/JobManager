@@ -9,20 +9,25 @@ using Xamarin.Forms;
 using System.Diagnostics;
 using JobManager.Services;
 using System.IO;
+using MvvmHelpers;
 
 namespace JobManager.ViewModels
 {
     [QueryProperty(nameof(JobId), nameof(JobId))]
     public class JobDetailViewModel : JobManagerBase
     {
+        public ObservableRangeCollection<Picture> Pictures { get; set; }
+
+        public AsyncCommand RefreshCommand { get; }
 
         public AsyncCommand SaveCommand { get; }
         public AsyncCommand TakePictureCommand { get; }
+        public AsyncCommand PageAppearingCommand { get; }
+        public AsyncCommand PageDisappearingCommand { get; }
 
         private int jobId;
         private string name;
         private string description;
-        private ImageSource picture;
 
         public string Name
         {
@@ -36,12 +41,6 @@ namespace JobManager.ViewModels
             set => SetProperty(ref description, value);
         }
 
-        public ImageSource Picture
-        {
-            get => picture;
-            set => SetProperty(ref picture, value);
-        }
-
         public int JobId
         {
             get
@@ -51,14 +50,41 @@ namespace JobManager.ViewModels
             set
             {
                 jobId = value;
-                LoadJob(value);
             }
         }
 
         public JobDetailViewModel()
         {
+            Pictures = new ObservableRangeCollection<Picture>();
+            Pictures.Add(new Picture() { Name = "Loading..." });
+
             SaveCommand = new AsyncCommand(Save);
             TakePictureCommand = new AsyncCommand(TakePicture);
+
+            RefreshCommand = new AsyncCommand(Refresh);
+
+            PageAppearingCommand = new AsyncCommand(PageAppearing);
+            PageDisappearingCommand = new AsyncCommand(PageDisappearing);
+        }
+        private async Task Refresh()
+        {
+            if (!IsBusy)
+            {
+                IsBusy = true;
+
+                await LoadJob(JobId);
+
+                IsBusy = false;
+            }
+        }
+
+        async Task PageAppearing()
+        {
+            await Refresh();
+        }
+
+        async Task PageDisappearing()
+        {
         }
 
         async Task TakePicture()
@@ -66,12 +92,14 @@ namespace JobManager.ViewModels
             var service = DependencyService.Get<IMediaService>();
             var bytes = await service.CapturePhotoAsync();
 
-            Picture = ImageSource.FromStream(() => new MemoryStream(bytes));
+            //Picture = ;
             
             string name = $"Jobs/Pictures/{JobId}/{Guid.NewGuid()}.png";
 
             var blob = DependencyService.Get<IBlobStorageService>();
             await blob.UploadStreamAsync(name, new MemoryStream(bytes));
+
+            await Refresh();
         }
 
         async Task Save()
@@ -91,7 +119,7 @@ namespace JobManager.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
-        public async void LoadJob(int jobId)
+        public async Task LoadJob(int jobId)
         {
             try
             {
@@ -99,6 +127,21 @@ namespace JobManager.ViewModels
                 //JobId = job.Id;
                 Name = job.Name;
                 Description = job.Description;
+
+                var blobService = DependencyService.Get<IBlobStorageService>();
+                List<string> blobs = await blobService.ListBlobsAsync($"Jobs/Pictures/{jobId}/");
+
+                Pictures.Clear();
+                foreach (string blob in blobs)
+                {
+                    MemoryStream stream = await blobService.DownloadStreamAsync(blob);
+
+                    Pictures.Add(new Picture
+                    {
+                        Name = blob,
+                        Source = ImageSource.FromStream(() => new MemoryStream(stream.ToArray()))
+                    });
+                }
             }
             catch (Exception)
             {

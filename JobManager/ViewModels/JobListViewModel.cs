@@ -44,7 +44,7 @@ namespace JobManager.ViewModels
 
         async Task PageAppearing()
         {
-            Refresh();
+            await Refresh();
         }
 
         async Task PageDisappearing()

@@ -37,8 +37,8 @@
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
-        <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">
-            <ScrollView>
+        <ScrollView>
+            <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">
                 <StackLayout>
                     <ListView
                 Background="Transparent"
@@ -62,7 +62,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </StackLayout>
-            </ScrollView>
-        </RefreshView>
+            </RefreshView>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

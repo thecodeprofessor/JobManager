@@ -10,16 +10,44 @@
         <viewmodels:JobDetailViewModel/>
     </ContentPage.BindingContext>
 
-    
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior
+                EventName="Appearing"
+                Command="{Binding PageAppearingCommand}" />
+        <xct:EventToCommandBehavior
+                EventName="Disappearing"
+                Command="{Binding PageDisappearingCommand}" />
+    </ContentPage.Behaviors>
+
     <ContentPage.Content>
-        <StackLayout Margin="20" VerticalOptions="StartAndExpand">
-            <Label Text="Name:" FontSize="Medium" />
-            <Entry Text="{Binding Name}" FontSize="Small"/>
-            <Label Text="Description:" FontSize="Medium" />
-            <Entry Text="{Binding Description}" FontSize="Small"/>
-            <Button Text="Save" Command="{Binding SaveCommand}" />
-            <Button Text="Take Picture" Command="{Binding TakePictureCommand}" />
-            <Image Source="{Binding Picture}"/>
-        </StackLayout>
+        <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">
+            <StackLayout Margin="20" VerticalOptions="FillAndExpand">
+                <Label Text="Name:" FontSize="Medium" />
+                <Entry Text="{Binding Name}" FontSize="Small"/>
+                <Label Text="Description:" FontSize="Medium" />
+                <Entry Text="{Binding Description}" FontSize="Small"/>
+                <Button Text="Save" Command="{Binding SaveCommand}" />
+                <Button Text="Take Picture" Command="{Binding TakePictureCommand}" />
+                <Image Source="{Binding Picture}"/>
+
+                <Label Text="Pictures:" FontSize="Large" />
+
+                <ListView
+                Background="Transparent"
+                CachingStrategy="RecycleElement"
+                ItemsSource="{Binding Pictures}"
+                RowHeight="100">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Picture">
+                            <ViewCell>
+                                <StackLayout Padding="10">
+                                    <Image Source="{Binding Source}" WidthRequest="200" HeightRequest="200"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>
