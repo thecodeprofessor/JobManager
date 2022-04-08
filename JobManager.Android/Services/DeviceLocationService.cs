@@ -14,8 +14,7 @@ using JobManager.Models;
 using JobManager.Droid.Services;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-
-[assembly: Dependency(typeof(DeviceLocationService))]
+using System.Threading;
 
 //Needed for accessing hardware location.
 [assembly: UsesPermission(Android.Manifest.Permission.AccessCoarseLocation)]
@@ -24,6 +23,8 @@ using Xamarin.Essentials;
 [assembly: UsesFeature("android.hardware.location.gps", Required = false)]
 [assembly: UsesFeature("android.hardware.location.network", Required = false)]
 
+[assembly: Dependency(typeof(DeviceLocationService))]
+
 namespace JobManager.Droid.Services
 {
     class DeviceLocationService : IDeviceLocationService
@@ -31,7 +32,7 @@ namespace JobManager.Droid.Services
         //Related Documentation:
         //https://docs.microsoft.com/en-us/xamarin/essentials/geolocation?tabs=android
 
-        public async Task<Location> GetLastLocation()
+        public async Task<Location> GetLastLocationAsync()
         {
             try
             {
@@ -44,19 +45,51 @@ namespace JobManager.Droid.Services
             }
             catch (FeatureNotSupportedException ex)
             {
-                // Handle not supported on device exception
+                //Handle not supported on device exception.
             }
             catch (FeatureNotEnabledException ex)
             {
-                // Handle not enabled on device exception
+                //Handle not enabled on device exception.
             }
             catch (PermissionException ex)
             {
-                // Handle permission exception
+                //Handle permission exception.
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                // Unable to get location
+                //Unable to get location.
+            }
+
+            return null;
+        }
+
+        public async Task<Location> GetCurrentLocationAsync(GeolocationAccuracy accuracy = GeolocationAccuracy.Medium, int timeoutSeconds = 10)
+        {
+            try
+            {
+                var request = new GeolocationRequest(accuracy, TimeSpan.FromSeconds(timeoutSeconds));
+                var location = await Geolocation.GetLocationAsync(request);
+
+                if (location != null)
+                {
+                    return location;
+                }
+            }
+            catch (FeatureNotSupportedException ex)
+            {
+                //Handle not supported on device exception.
+            }
+            catch (FeatureNotEnabledException ex)
+            {
+                //Handle not enabled on device exception.
+            }
+            catch (PermissionException ex)
+            {
+                //Handle permission exception.
+            }
+            catch (Exception ex)
+            {
+                //Unable to get location.
             }
 
             return null;

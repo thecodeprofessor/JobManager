@@ -12,6 +12,7 @@ namespace JobManager.Services
 
     public interface IDeviceLocationService
     {
-        Task<Location> GetLastLocation();
+        Task<Location> GetLastLocationAsync();
+        Task<Location> GetCurrentLocationAsync(GeolocationAccuracy accuracy = GeolocationAccuracy.Medium, int timeoutSeconds = 10);
     }
 }

@@ -62,8 +62,8 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\DeviceLocationService.cs" />
     <Compile Include="Services\DeviceBatteryService.cs" />
+    <Compile Include="Services\DeviceLocationService.cs" />
     <Compile Include="Services\DeviceOrientationService.cs" />
     <Compile Include="Services\MediaService.cs" />
     <Compile Include="Services\WebClientService.cs" />
